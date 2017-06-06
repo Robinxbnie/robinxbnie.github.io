@@ -26,6 +26,10 @@
             float: left;
             display:inline-block;
          }
+         #columnchart{
+            float: left;
+            display:inline-block;
+         }         
          h3{
             text-align: center;
          }
@@ -38,8 +42,11 @@
      <div id="map">My map will go here</div>
      <hc-chart options="chartOptions" id='linechart'>Placeholder for generic chart</hc-chart>
      <hc-pie-chart title="<strong>Robin's Skills Distribution</strong>" data="pieData" id="piechart">Placeholder for pie chart</hc-pie-chart> 
-     <hc-pie-chart title="<strong>Robin's Software Skills</strong>" data="pieData2" id="piechart2">Placeholder for pie chart2</hc-pie-chart>  
-     <hc-chart options="chartOptions2" id='barchart'>Placeholder for generic chart</hc-chart>     
+     <hc-chart options="chartOptions3" id='columnchart'>Placeholder for generic chart</hc-chart>
+     <hc-pie-chart title="<strong>Robin's Software Skills</strong>" data="pieData2" width = 'width2' id="piechart2">Placeholder for pie chart2</hc-pie-chart>       
+     <hc-chart options="chartOptions2" id='barchart'>Placeholder for generic chart</hc-chart>          
+
+
     
     <script>
 
@@ -133,12 +140,14 @@
                     template: '<div></div>',
                     scope: {
                         title: '@',
-                        data: '='
+                        data: '=',
+                        width:'='
                     },
                     link: function (scope, element) {
                         Highcharts.chart(element[0], {
                             chart: {
-                                type: 'pie'
+                                type: 'pie',
+                                width:scope.width
                             },
                             title: {
                                 text: scope.title
@@ -206,7 +215,10 @@
                 };
 
                 $scope.chartOptions2 = {
-                    chart :{type: 'bar'},
+                    chart :{
+                        type: 'bar',
+                        width: 400
+                    },
                     title: {
                         text: "<strong>Robin's Petrophysics/Geoscience/Geosteering Experience</strong>"
                     },
@@ -225,12 +237,12 @@
 
                     plotOptions: {
                         column: {
-                                  colorByPoint: true,
-                                  colors: [
-                                                '#ff0000',
-                                                '#00ff00',
-                                                '#0000ff'
-                                            ]
+                                  colorByPoint: true
+                                  // colors: [
+                                  //               '#ff0000',
+                                  //               '#00ff00',
+                                  //               '#0000ff'
+                                  //           ]
                         },
                         bar: {
                             dataLabels: {
@@ -260,6 +272,64 @@
                     }]
                 };                
 
+                $scope.chartOptions3 = {
+                    chart :{
+                        type: 'column',
+                        width: 400
+                    },
+                    title: {
+                        text: "<strong>Robin's Marketing & Sales Experience</strong>"
+                    },
+                    xAxis: {
+                        categories: ['<strong>Years of Expererience</strong>', '<strong>Market Size</strong>', '<strong>Products & Services</strong>', '<strong>Clients</strong>']
+                    },
+
+                    yAxis: {
+                        title: {
+                            text: '<strong>Experience Index</strong>'
+                        },
+                        opposite:false,                        
+                        visible: true,
+                        tickInterval: 2
+                    },
+
+                    plotOptions: {
+                        column: {
+                                  colorByPoint: true
+                                  // colors: [
+                                  //               '#ff0000',
+                                  //               '#00ff00',
+                                  //               '#0000ff'
+                                  //           ]
+                        },
+                        column: {
+                            dataLabels: {
+                                enabled: true
+                            },
+                            enableMouseTracking: false
+                        }
+                    },
+
+
+                    credits: {
+                                text: "<strong>Robin's Homepage</strong>",
+                                href: 'https://www.linkedin.com/in/Robin-Xiang-Bin-Nie/'
+                            },
+
+                    legend: {
+                                enabled: false,
+                                align: 'right',
+                                x: -20,
+                                verticalAlign: 'top',
+                                floating: true 
+                            },
+
+
+                    series: [{
+                        data: [{y:6,color:'#00ff00'},{y:50, color:'#ff0000'},{y:13,color:'#0000ff'},{y:35, color:'#ff00ff'}]
+                    }]
+                };                
+
                 $scope.pieData = [{
                         name: "Petrophysics",
                         y: 13
@@ -280,6 +350,7 @@
                     }]
                 // $scope.title = "Robin's Experience";            
                 
+                $scope.width2 = 400;
                 $scope.pieData2 = [{
                         name: "Python",
                         y: 10
